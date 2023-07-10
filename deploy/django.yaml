@@ -56,6 +56,9 @@ spec:
         - image: django-app:latest
           imagePullPolicy: Never
           name: app
+          ports:
+            - containerPort: 8080
+              name: app          
           volumeMounts:
             - name: django-app-data
               mountPath: /vol/web
@@ -77,7 +80,7 @@ spec:
                   name: django
                   key: secret                    
             - name: ALLOWED_HOSTS
-              value: '127.0.0.1,localhost'
+              value: '*'
         - image: django-proxy:latest
           imagePullPolicy: Never
           name: proxy
@@ -92,5 +95,3 @@ spec:
               value: '127.0.0.1'
             - name: APP_PORT
               value: '8080'
-            - name: LISTEN_PORT
-              value: '8000'
